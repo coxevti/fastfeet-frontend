@@ -9,7 +9,6 @@ module.exports = {
     SharedArrayBuffer: "readonly",
     __DEV__: true
   },
-  parser: "babel-eslint",
   parserOptions: {
     ecmaFeatures: {
       jsx: true
