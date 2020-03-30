@@ -34,6 +34,7 @@ export default createGlobalStyle`
     body {
         line-height: 1;
         -webkit-font-smoothing: antialiased !important;
+        height: 100vh;
     }
     ol, ul {
         list-style: none;
@@ -51,9 +52,10 @@ export default createGlobalStyle`
         border-spacing: 0;
     }
     html, body, #root {
-        height: 100%;
         width: 100%;
-        color: #fff;
+        height: 100vh;
+        color: #999;
+        background: #f5f5f5;
     }
     body, input, button {
         font-size: 14px;

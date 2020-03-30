@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  max-width: 900px;
+  max-width: 1200px;
   margin: 24px auto;
   padding: 20px;
   display: flex;
@@ -13,6 +13,7 @@ export const Header = styled.div`
     color: #444444;
     font-size: 24px;
     margin-bottom: 34px;
+    font-weight: bold;
   }
   div {
     display: flex;
@@ -28,21 +29,32 @@ export const Header = styled.div`
     thead {
       color: #444444;
       display: table-header-group;
+      font-weight: bold;
+
+      font-size: 16px;
     }
     tbody {
       color: #666666;
       font-weight: normal;
-      .deliveryAvatar {
+      font-size: 16px;
+      td.actions {
         display: flex;
         align-items: center;
+        justify-content: center;
       }
       td {
         background: #fff;
-        height: 57px;
+        vertical-align: middle;
         img {
           width: 35px;
           height: 35px;
           margin-right: 5px;
+        }
+        > div {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
         }
       }
     }
@@ -50,6 +62,9 @@ export const Header = styled.div`
     td {
       padding: 0.25rem;
       text-align: left;
+    }
+    td + td {
+      height: 57px;
     }
     tr > td:last-child,
     tr > th:last-child {
@@ -91,9 +106,10 @@ export const Header = styled.div`
     }
     .badge {
       border-radius: 12px;
-      padding: 2px 5px 2px 20px;
+      padding: 3px 7px 3px 22px;
       font-weight: bold;
       text-align: center;
+      font-size: 14px;
       position: relative;
     }
     .circle {
@@ -103,68 +119,8 @@ export const Header = styled.div`
       border-radius: 50%;
       top: 0;
       left: 0;
-      margin-left: 5px;
-      margin-top: 4px;
-    }
-    .actions {
-      position: relative;
-      z-index: 2;
-      button {
-        background: none;
-        border: 0;
-        position: relative;
-      }
-      div {
-        position: absolute;
-        width: 160px;
-        left: calc(50% - 80px);
-        top: calc(100% - 10px);
-        background: #fff;
-        border-radius: 4px;
-        padding: 15px 5px;
-        display: block;
-        border: 1px solid #00000026;
-        &::before {
-          content: '';
-          background: #fff;
-          position: absolute;
-          width: 20px;
-          height: 20px;
-          transform: rotate(-45deg);
-          border-top-right-radius: 5px;
-          top: -11px;
-          left: 70px;
-          border-right: 1px solid #00000026;
-          border-top: 1px solid #00000026;
-        }
-        ul {
-          .view {
-            color: #8e5be8;
-          }
-          .edit {
-            color: #4d85ee;
-          }
-          .delete {
-            color: #de3b3b;
-          }
-          li {
-            padding: 0 20px;
-            svg {
-              margin-right: 10px;
-            }
-            button {
-              display: flex;
-              align-items: center;
-              color: #999999;
-            }
-          }
-          li + li {
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #00000026;
-          }
-        }
-      }
+      margin-left: 6px;
+      margin-top: 5px;
     }
   }
 `;
