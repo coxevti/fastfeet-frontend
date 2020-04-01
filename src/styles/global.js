@@ -47,10 +47,6 @@ export default createGlobalStyle`
         content: '';
         content: none;
     }
-    table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
     html, body, #root {
         width: 100%;
         height: 100vh;
@@ -69,7 +65,6 @@ export default createGlobalStyle`
     }
     table {
     margin-top: 22px;
-    width: 100%;
     display: table;
     border-collapse: separate;
     border-spacing: 0 15px;
@@ -77,7 +72,6 @@ export default createGlobalStyle`
       color: #444444;
       display: table-header-group;
       font-weight: bold;
-
       font-size: 16px;
     }
     tbody {
