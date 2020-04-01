@@ -6,6 +6,7 @@ import { Container, Header } from './styles';
 import Button from '~/components/Button';
 import InputSearch from '~/components/InputSearch';
 import Action from '~/components/Action';
+import Pagination from '~/components/Pagination';
 
 export default function Order() {
   return (
@@ -123,6 +124,7 @@ export default function Order() {
             </tr>
           </tbody>
         </table>
+        <Pagination />
       </Header>
     </Container>
   );
