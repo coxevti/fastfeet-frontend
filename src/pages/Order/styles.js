@@ -5,6 +5,7 @@ export const Container = styled.div`
   margin: 24px auto;
   padding: 20px;
   display: flex;
+  flex-direction: column;
 `;
 
 export const Header = styled.div`
