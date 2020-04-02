@@ -20,4 +20,5 @@ export const Text = styled.h1`
   font-size: 14px;
   margin-left: 5px;
   color: #fff;
+  font-weight: bold;
 `;
