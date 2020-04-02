@@ -13,16 +13,16 @@ export default function Header() {
         <nav>
           <img src={logo} alt="Logo FastFeet" />
           <FiMenu size={24} />
-          <NavLink exact to="/orders" activeClassName="active">
+          <NavLink to="/orders" activeClassName="active">
             Encomendas
           </NavLink>
-          <NavLink exact to="/deliverers" activeClassName="active">
+          <NavLink to="/deliverers" activeClassName="active">
             Entregadores
           </NavLink>
-          <NavLink exact to="/recipients" activeClassName="active">
+          <NavLink to="/recipients" activeClassName="active">
             Destinatários
           </NavLink>
-          <NavLink exact to="/problems" activeClassName="active">
+          <NavLink to="/problems" activeClassName="active">
             Problemas
           </NavLink>
         </nav>
