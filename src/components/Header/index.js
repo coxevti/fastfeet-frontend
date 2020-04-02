@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { FiMenu } from 'react-icons/fi';
 
 import logo from '~/assets/logo.svg';
 
@@ -11,6 +12,7 @@ export default function Header() {
       <Content>
         <nav>
           <img src={logo} alt="Logo FastFeet" />
+          <FiMenu size={24} />
           <NavLink exact to="/orders" activeClassName="active">
             Encomendas
           </NavLink>

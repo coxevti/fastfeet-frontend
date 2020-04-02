@@ -15,6 +15,9 @@ export const Content = styled.div`
   nav {
     display: flex;
     align-items: center;
+    svg {
+      display: none;
+    }
     img {
       width: 180px;
       margin-right: 20px;
@@ -37,6 +40,16 @@ export const Content = styled.div`
   }
   .active {
     color: #444444;
+  }
+  @media all and (max-width: 850px) {
+    nav {
+      a {
+        display: none;
+      }
+      svg {
+        display: block;
+      }
+    }
   }
 `;
 
