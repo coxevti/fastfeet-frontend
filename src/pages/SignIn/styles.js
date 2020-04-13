@@ -27,10 +27,10 @@ export const Container = styled.div`
         input {
           margin-top: 10px;
           border-radius: 4px;
-          padding: 20px 15px;
+          padding: 10px 15px;
           border: 1px solid #dddddd;
           font-size: 0.9rem;
-          height: 44px;
+          height: 45px;
           &::placeholder {
             color: #999999;
           }
@@ -46,6 +46,7 @@ export const Container = styled.div`
       border: 0;
       border-radius: 4px;
       transition: background 0.2s;
+      outline: 0;
       &:hover {
         background: ${darken(0.1, '#7D40E7')};
       }
