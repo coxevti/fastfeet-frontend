@@ -2,6 +2,9 @@ import React from 'react';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import cogoToast from 'cogo-toast';
+import { useDispatch } from 'react-redux';
+
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import Input from '~/components/Input';
 
@@ -9,6 +12,8 @@ import { Container } from './styles';
 import logo from '~/assets/logo.svg';
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+
   async function handleSubmit(data) {
     try {
       const schema = Yup.object().shape({
@@ -20,7 +25,7 @@ export default function SignIn() {
           .required('Senha é obrigatório'),
       });
       await schema.validate(data, { abortEarly: false });
-      console.tron.log(data);
+      dispatch(signInRequest(data.email, data.password));
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         error.errors.forEach(err =>
@@ -32,7 +37,10 @@ export default function SignIn() {
   return (
     <Container>
       <img src={logo} alt="Logo FastFeet" />
-      <Form onSubmit={handleSubmit}>
+      <Form
+        onSubmit={handleSubmit}
+        initialData={{ email: 'admin@fastfeet.com' }}
+      >
         <div>
           <label htmlFor="email">
             seu e-mail
