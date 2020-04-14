@@ -16,7 +16,7 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
+  display: ${props => (props.show ? 'flex' : 'none')};
   align-items: center;
   justify-content: center;
   flex-direction: column;

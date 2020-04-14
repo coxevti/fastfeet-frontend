@@ -3,7 +3,7 @@ import cogoToast from 'cogo-toast';
 
 import history from '~/services/history';
 import api from '~/services/api';
-import { signInSuccess } from './actions';
+import { signInSuccess, signFailure } from './actions';
 
 function* signIn({ payload }) {
   try {
@@ -18,6 +18,7 @@ function* signIn({ payload }) {
     cogoToast.success(`Bem-vindo de volta ${user.name} :)`);
   } catch (error) {
     cogoToast.error(error.response.data.message);
+    yield put(signFailure());
   }
 }
 

@@ -2,17 +2,19 @@ import React from 'react';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import cogoToast from 'cogo-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { signInRequest } from '~/store/modules/auth/actions';
 
 import Input from '~/components/Input';
+import Loading from '~/components/Loading';
 
 import { Container } from './styles';
 import logo from '~/assets/logo.svg';
 
 export default function SignIn() {
   const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
 
   async function handleSubmit(data) {
     try {
@@ -36,6 +38,7 @@ export default function SignIn() {
   }
   return (
     <Container>
+      <Loading show={loading} />
       <img src={logo} alt="Logo FastFeet" />
       <Form
         onSubmit={handleSubmit}
