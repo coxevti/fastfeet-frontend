@@ -64,8 +64,11 @@ export const Profile = styled.div`
     color: #666666;
     letter-spacing: 0;
   }
-  a {
+  button {
     color: #de3b3b;
     display: block;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
   }
 `;

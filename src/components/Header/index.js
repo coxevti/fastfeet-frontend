@@ -2,11 +2,17 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
 
+import { useDispatch } from 'react-redux';
 import logo from '~/assets/logo.svg';
 
 import { Container, Content, Profile } from './styles';
+import { signOut } from '~/store/modules/auth/actions';
 
 export default function Header() {
+  const dispatch = useDispatch();
+  function handleLogout() {
+    dispatch(signOut());
+  }
   return (
     <Container>
       <Content>
@@ -29,7 +35,9 @@ export default function Header() {
         <aside>
           <Profile>
             <strong>Admin FastFeet</strong>
-            <NavLink to="/profile">sair do sistema</NavLink>
+            <button type="button" onClick={handleLogout}>
+              sair do sistema
+            </button>
           </Profile>
         </aside>
       </Content>
