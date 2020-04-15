@@ -10,7 +10,7 @@ import { signOut } from '~/store/modules/auth/actions';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const { name } = useSelector(state => state.user.profile);
+  const { name } = useSelector(state => state.user.profile) || {};
   function handleLogout() {
     dispatch(signOut());
   }
