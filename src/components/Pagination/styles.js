@@ -23,10 +23,10 @@ export const Detail = styled.h1`
   font-size: 16px;
 `;
 
-export const Navigation = styled.div`
-  button {
-    color: #444444;
-    background: transparent;
-    border: 0;
-  }
+export const Button = styled.button`
+  color: #444444;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  opacity: ${props => (props.show ? 1 : 0.2)};
 `;
