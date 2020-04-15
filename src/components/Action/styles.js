@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Badge = styled.button`
@@ -17,7 +20,7 @@ export const ActionList = styled.div`
   z-index: 2;
   width: 150px;
   left: calc(50% - 81px);
-  top: calc(100% - 10px);
+  top: calc(100% + 5px);
   background: #fff;
   border-radius: 4px;
   border: 1px solid #00000026;

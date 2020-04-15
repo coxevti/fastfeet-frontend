@@ -13,8 +13,8 @@ export default createGlobalStyle`
     dl, dt, dd, ol, ul, li,
     fieldset, form, label, legend,
     table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, embed, 
-    figure, figcaption, footer, header, hgroup, 
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
     menu, nav, output, ruby, section, summary,
     time, mark, audio, video {
         margin: 0;
@@ -27,7 +27,7 @@ export default createGlobalStyle`
         vertical-align: baseline;
     }
     /* HTML5 display-role reset for older browsers */
-    article, aside, details, figcaption, figure, 
+    article, aside, details, figcaption, figure,
     footer, header, hgroup, menu, nav, section {
         display: block;
     }
@@ -82,6 +82,12 @@ export default createGlobalStyle`
         display: flex;
         align-items: center;
         justify-content: center;
+
+        line-height: 1.6;
+      }
+      td.product {
+        max-width: 200px;
+        line-height: 1.6;
       }
       td {
         background: #fff;
@@ -103,9 +109,6 @@ export default createGlobalStyle`
     td {
       padding: 0.25rem;
       text-align: left;
-    }
-    td + td {
-      height: 57px;
     }
     tr > td:last-child,
     tr > th:last-child {
