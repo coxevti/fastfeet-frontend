@@ -20,11 +20,12 @@ export default function OrderList() {
   const [perPage, setPerPage] = useState(10);
   const [from, setFrom] = useState(0);
   const [to, setTo] = useState(0);
+  const [search, setSearch] = useState(null);
 
   useEffect(() => {
     (async () => {
       const response = await api.get('/orders', {
-        params: { perPage, page: currentPage },
+        params: { perPage, page: currentPage, q: search },
       });
       if (response) {
         setOrder(response.data.orders);
@@ -36,7 +37,7 @@ export default function OrderList() {
         setTo(response.data.to);
       }
     })();
-  }, [perPage, currentPage]);
+  }, [perPage, currentPage, search]);
 
   function handleStatus(value) {
     if (value.canceled_at) {
@@ -51,12 +52,18 @@ export default function OrderList() {
     return { text: 'Pendente', type: 'pending' };
   }
 
+  function handleSearch(e) {
+    setSearch(null);
+    if (e.target.value.length < 3) return;
+    setSearch(e.target.value);
+  }
+
   return (
     <Container>
       <Header>
         <h1>Gerenciando encomendas</h1>
         <div>
-          <InputSearch />
+          <InputSearch onChange={handleSearch} />
           <Button
             Icon={<MdAdd size={24} />}
             Title="Cadastrar"

@@ -55,6 +55,7 @@ export const HeaderRegister = styled.div`
     button + button {
       margin-left: 16px;
       background: #7d40e7;
+      outline: none;
     }
   }
 `;
