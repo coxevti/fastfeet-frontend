@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
 import { MdAdd } from 'react-icons/md';
@@ -9,8 +9,48 @@ import InputSearch from '~/components/InputSearch';
 import Action from '~/components/Action';
 import Pagination from '~/components/Pagination';
 
+import api from '~/services/api';
+
 export default function OrderList() {
   const { url } = useRouteMatch();
+  const [orders, setOrder] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [numOfResults, setNumOfResults] = useState(0);
+  const [pages, setPages] = useState(0);
+  const [perPage, setPerPage] = useState(10);
+  const [from, setFrom] = useState(0);
+  const [to, setTo] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      const response = await api.get('/orders', {
+        params: { perPage, page: currentPage },
+      });
+      if (response) {
+        setOrder(response.data.orders);
+        setCurrentPage(response.data.currentPage);
+        setNumOfResults(response.data.numOfResults);
+        setPages(response.data.pages);
+        setPerPage(response.data.perPage);
+        setFrom(response.data.from);
+        setTo(response.data.to);
+      }
+    })();
+  }, [perPage, currentPage]);
+
+  function handleStatus(value) {
+    if (value.canceled_at) {
+      return { text: 'Cancelada', type: 'cancelled' };
+    }
+    if (value.end_date) {
+      return { text: 'Entregue', type: 'delivery' };
+    }
+    if (value.start_date) {
+      return { text: 'Retirada', type: 'removed' };
+    }
+    return { text: 'Pendente', type: 'pending' };
+  }
+
   return (
     <Container>
       <Header>
@@ -28,6 +68,7 @@ export default function OrderList() {
         <thead>
           <tr>
             <th>ID</th>
+            <th>Produto</th>
             <th>Destinatário</th>
             <th>Entregador</th>
             <th>Cidade</th>
@@ -37,101 +78,44 @@ export default function OrderList() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td valign="top">#01</td>
-            <td>Ludwig van Beethoven</td>
-            <td>
-              <div>
-                <img
-                  src="https://ui-avatars.com/api/?name=John+Doe&background=F4EFFC&color=A28FD0&rounded=true"
-                  alt="Logo"
-                />
-                John Doe
-              </div>
-            </td>
-            <td>Campo Grande</td>
-            <td>Mato Grosso do Sul</td>
-            <td>
-              <span className="badge delivery">
-                <span className="circle" /> ENTREGUE
-              </span>
-            </td>
-            <td className="actions">
-              <Action />
-            </td>
-          </tr>
-          <tr>
-            <td>#02</td>
-            <td>Wolfgang Amadeus</td>
-            <td className="deliveryAvatar">
-              <div>
-                <img
-                  src="https://ui-avatars.com/api/?name=Gaspar+Antunes&background=FCF4EE&color=CB946C&rounded=true"
-                  alt="Logo"
-                />
-                Gaspar Antunes
-              </div>
-            </td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>
-              <span className="badge pending">
-                <span className="circle" /> PENDENTE
-              </span>
-            </td>
-            <td className="actions">
-              <Action />
-            </td>
-          </tr>
-          <tr>
-            <td>#03</td>
-            <td>Johann Sebastian Bach</td>
-            <td className="deliveryAvatar">
-              <div>
-                <img
-                  src="https://ui-avatars.com/api/?name=Dai+Jiang&background=EBFBFA&color=83CEC9&rounded=true"
-                  alt="Logo"
-                />
-                Dai Jiang
-              </div>
-            </td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>
-              <span className="badge removed">
-                <span className="circle" /> RETIRADA
-              </span>
-            </td>
-            <td className="actions">
-              <Action />
-            </td>
-          </tr>
-          <tr>
-            <td>#04</td>
-            <td>Frédéric Chopin</td>
-            <td className="deliveryAvatar">
-              <div>
-                <img
-                  src="https://ui-avatars.com/api/?name=Tom+Hanson&background=FFEEF1&color=CC7584&rounded=true"
-                  alt="Logo"
-                />
-                Tom Hanson
-              </div>
-            </td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>
-              <span className="badge cancelled">
-                <span className="circle" /> CANCELADA
-              </span>
-            </td>
-            <td className="actions">
-              <Action />
-            </td>
-          </tr>
+          {orders.map(order => (
+            <tr key={order.id}>
+              <td valign="top">#{order.id}</td>
+              <td className="product">{order.product}</td>
+              <td>{order.recipient.name}</td>
+              <td>
+                <div>
+                  <img
+                    src={`https://ui-avatars.com/api/?name=${order.deliveryman.name}&background=F4EFFC&color=A28FD0&rounded=true`}
+                    alt="Logo"
+                  />
+                  {order.deliveryman.name}
+                </div>
+              </td>
+              <td>{order.recipient.street}</td>
+              <td>{order.recipient.state}</td>
+              <td>
+                <span className={`badge ${handleStatus(order).type}`}>
+                  <span className="circle" /> {handleStatus(order).text}
+                </span>
+              </td>
+              <td>
+                <Action />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination
+        funcPerPage={value => setPerPage(value)}
+        funcCurrentPage={value => setCurrentPage(value)}
+        currentPage={currentPage}
+        pages={pages}
+        numOfResults={numOfResults}
+        perPage={perPage}
+        from={from}
+        to={to}
+      />
     </Container>
   );
 }
