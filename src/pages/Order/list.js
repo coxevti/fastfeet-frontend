@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
+import cogoToast from 'cogo-toast';
 
 import { MdAdd } from 'react-icons/md';
 import { Container, Header } from './styles';
@@ -59,6 +60,16 @@ export default function OrderList() {
     setSearch(e.target.value);
   }
 
+  async function handleDelete(id) {
+    try {
+      await api.delete(`/orders/${id}`);
+      setOrder(orders.filter(order => order.id !== id));
+      cogoToast.success('Encomenda excluida com sucesso!');
+    } catch (error) {
+      cogoToast.error('Error ao excluir encomenda');
+    }
+  }
+
   return (
     <Container>
       <Header>
@@ -108,7 +119,7 @@ export default function OrderList() {
                 </span>
               </td>
               <td>
-                <Action />
+                <Action onClick={() => handleDelete(order.id)} />
               </td>
             </tr>
           ))}
