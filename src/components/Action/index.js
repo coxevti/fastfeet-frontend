@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   MdMoreHoriz,
@@ -9,7 +10,7 @@ import {
 
 import { Container, Badge, ActionList } from './styles';
 
-export default function Action() {
+const Action = ({ onClick }) => {
   const [actionVisible, setActionVisible] = useState(false);
 
   function handleToggleAction() {
@@ -36,7 +37,7 @@ export default function Action() {
             </button>
           </li>
           <li>
-            <button type="button">
+            <button type="button" onClick={onClick}>
               <MdDeleteForever size={18} className="delete" />
               Excluir
             </button>
@@ -45,4 +46,10 @@ export default function Action() {
       </ActionList>
     </Container>
   );
-}
+};
+
+Action.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
+
+export default Action;

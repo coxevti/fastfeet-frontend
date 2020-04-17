@@ -62,6 +62,7 @@ export const ActionList = styled.div`
         color: #999999;
         background: transparent;
         border: 0;
+        outline: 0;
       }
     }
     li + li {
