@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
+import { format, parseISO } from 'date-fns';
 
 import { MdAdd } from 'react-icons/md';
-import { Container, Header } from './styles';
+import { Container, Header, Box } from './styles';
 
 import Button from '~/components/Button';
 import InputSearch from '~/components/InputSearch';
 import Action from '~/components/Action';
 import Pagination from '~/components/Pagination';
+import Modal from '~/components/Modal';
 
 import api from '~/services/api';
 
 export default function OrderList() {
   const { url } = useRouteMatch();
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [orders, setOrder] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [numOfResults, setNumOfResults] = useState(0);
@@ -22,6 +25,7 @@ export default function OrderList() {
   const [from, setFrom] = useState(0);
   const [to, setTo] = useState(0);
   const [search, setSearch] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -29,7 +33,16 @@ export default function OrderList() {
         params: { perPage, page: currentPage, q: search },
       });
       if (response) {
-        setOrder(response.data.orders);
+        const ordersResponse = response.data.orders.map(order => {
+          order.start_date = order.start_date
+            ? format(parseISO(order.start_date), 'dd/MM/yyyy')
+            : null;
+          order.end_date = order.end_date
+            ? format(parseISO(order.end_date), 'dd/MM/yyyy')
+            : null;
+          return order;
+        });
+        setOrder(ordersResponse);
         setCurrentPage(response.data.currentPage);
         setNumOfResults(response.data.numOfResults);
         setPages(response.data.pages);
@@ -70,8 +83,47 @@ export default function OrderList() {
     }
   }
 
+  function handleViewOrder(order) {
+    setSelectedOrder(order);
+    setIsVisibleModal(true);
+  }
+
   return (
     <Container>
+      {isVisibleModal ? (
+        <Modal onClose={() => setIsVisibleModal(false)}>
+          <Box>
+            <h2>Informações da encomenda</h2>
+            <p>
+              {selectedOrder.recipient.street}, {selectedOrder.recipient.number}
+            </p>
+            <p>
+              {selectedOrder.recipient.city} - {selectedOrder.recipient.state}
+            </p>
+            <p>{selectedOrder.recipient.cep}</p>
+          </Box>
+          <Box>
+            <h2>Datas</h2>
+            <p>
+              <span>Retirada</span>: {selectedOrder.start_date || '----'}
+            </p>
+            <p>
+              <span>Entrega</span>: {selectedOrder.end_date || '----'}
+            </p>
+          </Box>
+          <Box>
+            <h2>Assinatura do destinatário</h2>
+            <div>
+              {selectedOrder.signature ? (
+                <img
+                  src={selectedOrder.signature.url}
+                  alt="Assinatura do destinatário"
+                />
+              ) : null}
+            </div>
+          </Box>
+        </Modal>
+      ) : null}
       <Header>
         <h1>Gerenciando encomendas</h1>
         <div>
@@ -119,7 +171,10 @@ export default function OrderList() {
                 </span>
               </td>
               <td>
-                <Action onClick={() => handleDelete(order.id)} />
+                <Action
+                  onClick={() => handleDelete(order.id)}
+                  onView={() => handleViewOrder(order)}
+                />
               </td>
             </tr>
           ))}

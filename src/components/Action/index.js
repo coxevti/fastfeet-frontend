@@ -10,7 +10,7 @@ import {
 
 import { Container, Badge, ActionList } from './styles';
 
-const Action = ({ onClick }) => {
+const Action = ({ onClick, onView }) => {
   const [actionVisible, setActionVisible] = useState(false);
 
   function handleToggleAction() {
@@ -25,7 +25,7 @@ const Action = ({ onClick }) => {
       <ActionList visible={actionVisible} onMouseLeave={handleToggleAction}>
         <ul>
           <li>
-            <button type="button">
+            <button type="button" onClick={onView}>
               <MdRemoveRedEye size={18} className="view" />
               Visualizar
             </button>
@@ -50,6 +50,7 @@ const Action = ({ onClick }) => {
 
 Action.propTypes = {
   onClick: PropTypes.func.isRequired,
+  onView: PropTypes.func.isRequired,
 };
 
 export default Action;

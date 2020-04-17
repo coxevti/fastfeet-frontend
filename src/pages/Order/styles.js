@@ -94,3 +94,38 @@ export const FormGroup = styled.div`
     font-size: 14px;
   }
 `;
+
+export const Box = styled.div`
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  &:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  h2 {
+    color: #444444;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+  }
+  p {
+    line-height: 26px;
+    font-size: 16px;
+    span {
+      font-weight: bold;
+      color: #666666;
+    }
+  }
+  div {
+    margin-top: 23px;
+    display: grid;
+    place-items: center;
+    img {
+      width: 60%;
+      height: auto;
+      max-height: 200px;
+    }
+  }
+`;
