@@ -54,6 +54,7 @@ export default function OrderList() {
 
   function handleSearch(e) {
     setSearch(null);
+    setCurrentPage(1);
     if (e.target.value.length < 3) return;
     setSearch(e.target.value);
   }
