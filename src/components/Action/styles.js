@@ -56,9 +56,18 @@ export const ActionList = styled.div`
       svg {
         margin-right: 10px;
       }
+      a {
+        display: flex;
+        align-items: center;
+        color: #999999;
+        font-size: 14px;
+        margin-left: 6px;
+      }
       button {
         display: flex;
         align-items: center;
+
+        justify-content: center;
         color: #999999;
         background: transparent;
         border: 0;

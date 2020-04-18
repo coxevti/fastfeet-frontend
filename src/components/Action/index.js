@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
@@ -10,7 +11,8 @@ import {
 
 import { Container, Badge, ActionList } from './styles';
 
-const Action = ({ onClick, onView }) => {
+const Action = ({ onClick, onView, idEdit }) => {
+  const { url } = useRouteMatch();
   const [actionVisible, setActionVisible] = useState(false);
 
   function handleToggleAction() {
@@ -31,10 +33,10 @@ const Action = ({ onClick, onView }) => {
             </button>
           </li>
           <li>
-            <button type="button">
+            <Link to={`${url}/edit/${idEdit}`}>
               <MdModeEdit size={18} className="edit" />
               Editar
-            </button>
+            </Link>
           </li>
           <li>
             <button type="button" onClick={onClick}>
@@ -51,6 +53,7 @@ const Action = ({ onClick, onView }) => {
 Action.propTypes = {
   onClick: PropTypes.func.isRequired,
   onView: PropTypes.func.isRequired,
+  idEdit: PropTypes.number.isRequired,
 };
 
 export default Action;
