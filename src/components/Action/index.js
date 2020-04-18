@@ -11,7 +11,7 @@ import {
 
 import { Container, Badge, ActionList } from './styles';
 
-const Action = ({ onClick, onView, idEdit }) => {
+const Action = ({ onClick, onView, editStore }) => {
   const { url } = useRouteMatch();
   const [actionVisible, setActionVisible] = useState(false);
 
@@ -33,7 +33,9 @@ const Action = ({ onClick, onView, idEdit }) => {
             </button>
           </li>
           <li>
-            <Link to={`${url}/edit/${idEdit}`}>
+            <Link
+              to={{ pathname: `${url}/edit/${editStore.id}`, state: editStore }}
+            >
               <MdModeEdit size={18} className="edit" />
               Editar
             </Link>
@@ -53,7 +55,12 @@ const Action = ({ onClick, onView, idEdit }) => {
 Action.propTypes = {
   onClick: PropTypes.func.isRequired,
   onView: PropTypes.func.isRequired,
-  idEdit: PropTypes.number.isRequired,
+  editStore: PropTypes.shape({
+    id: PropTypes.number,
+    deliveryman_id: PropTypes.number,
+    recipient_id: PropTypes.number,
+    product: PropTypes.string,
+  }).isRequired,
 };
 
 export default Action;

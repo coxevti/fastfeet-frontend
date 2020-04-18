@@ -174,6 +174,7 @@ export default function OrderList() {
                 <Action
                   onClick={() => handleDelete(order.id)}
                   onView={() => handleViewOrder(order)}
+                  editStore={order}
                 />
               </td>
             </tr>
